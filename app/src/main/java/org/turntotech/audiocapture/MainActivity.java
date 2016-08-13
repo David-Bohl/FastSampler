@@ -51,8 +51,8 @@ public class MainActivity extends Activity {
 			public boolean onTouch(View v, MotionEvent event) {
 				if (event.getAction() == MotionEvent.ACTION_DOWN ) {
 
-					sound.playPresetResource(R.raw.metronome, 1);
-					//sound.playShortResource(globalSoundID, 1);
+					//sound.playPresetResource(R.raw.metronome, 1);
+					sound.playShortResource(globalSoundID, 1);
 
 
 					return true;
@@ -66,8 +66,8 @@ public class MainActivity extends Activity {
 			public boolean onTouch(View v, MotionEvent event) {
 				if (event.getAction() == MotionEvent.ACTION_DOWN ) {
 
-					sound.playPresetResource(R.raw.metronome, 2);
-					//sound.playShortResource(globalSoundID, 2);
+					//sound.playPresetResource(R.raw.metronome, 2);
+					sound.playShortResource(globalSoundID, 2);
 
 
 					return true;
