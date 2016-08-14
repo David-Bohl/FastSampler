@@ -2,6 +2,13 @@
 <items version="2" >
 
     <item
+        jar="/Users/david/Desktop/Android_Class/AudioCapture/app/build/intermediates/exploded-aar/AudioCapture/piano/unspecified/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="5dc6d1b05ad156094c48c5ed67c8efd7c7d6d9d6">
+        <dex dex="/Users/david/Desktop/Android_Class/AudioCapture/app/build/intermediates/pre-dexed/debug/classes-e60ebcdca19d524d5e316efaa958dde9213d0c3a.jar" />
+    </item>
+    <item
         jar="/Users/david/Library/Android/sdk/extras/android/m2repository/com/android/support/support-v4/19.1.0/support-v4-19.1.0.jar"
         jumboMode="false"
         revision="21.1.2"
