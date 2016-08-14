@@ -68,7 +68,13 @@
        android:layout_alignParentLeft="true"
        android:layout_below="@+id/gridLayout">
 
-
+      <com.twobard.pianoview.Piano
+          android:layout_width="match_parent"
+          android:layout_height="203dp"
+          piano:keyCount="24"
+          piano:blackKeyDrawable="@drawable/key_black"
+          piano:whiteKeyDrawable="@drawable/key_white"
+          android:layout_gravity="center"/>
 
 
    </FrameLayout>
