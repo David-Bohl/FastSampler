@@ -131,13 +131,11 @@ public class MainActivity extends Activity {
 					Log.i("action", Integer.toString(action) );
 
 					if(action == 0){
-						//float floatID = (float)id;
-
-						//float pitch = (floatID/12)+1;
 
 						float pitch = (float) Math.pow( Math.pow(2.0, 1/12.0), (float) id-12 );
 
-						sound.playPresetResource(R.raw.piano_c, pitch);
+						//sound.playPresetResource(R.raw.piano_c, pitch);
+						sound.playShortResource(globalSoundID, pitch);
 					}
 
 				}
