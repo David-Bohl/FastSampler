@@ -34,16 +34,6 @@
           android:layout_toRightOf="@+id/button1"/>
 
       <Button
-          android:id="@+id/button3"
-          style="?android:attr/buttonStyleSmall"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:onClick="play"
-          android:text="@string/play"
-          android:layout_alignTop="@+id/resetButton"
-          android:layout_toRightOf="@+id/resetButton"/>
-
-      <Button
           android:id="@+id/resetButton"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
@@ -52,14 +42,6 @@
           android:layout_alignParentTop="true"
           android:layout_toRightOf="@+id/button2"/>
 
-      <Button
-          style="?android:attr/buttonStyleSmall"
-          android:id="@+id/playHiButton"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="@string/playHi"
-          android:layout_alignParentTop="true"
-          android:layout_centerHorizontal="true"/>
    </GridLayout>
 
    <LinearLayout

@@ -30,8 +30,9 @@ public class MainActivity extends Activity {
 
 	private MediaRecorder myAudioRecorder;
 	private String outputFile = null;
-	private Button start, stop, play, playHi, reset;
+	private Button start, stop, reset;
 	private int globalSoundID;
+	private boolean soundRecorded = false;
 
 	SoundPoolPlayer sound;
 
@@ -42,67 +43,24 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-//		Programmatic setup
-
 		LinearLayout main = (LinearLayout)findViewById(R.id.main_content);
 		Piano piano;
 		piano = new Piano(this);
 		piano.setPianoKeyListener(onPianoKeyPress);
 		main.addView(piano);
 
-
-
 		start = (Button) findViewById(R.id.button1);
 		stop = (Button) findViewById(R.id.button2);
-		play = (Button) findViewById(R.id.button3);
-		playHi = (Button) findViewById(R.id.playHiButton);
 		reset = (Button) findViewById(R.id.resetButton);
 
 		sound = new SoundPoolPlayer(this);
 
-		play.setOnTouchListener(new View.OnTouchListener() {
-			@Override
-			public boolean onTouch(View v, MotionEvent event) {
-				if (event.getAction() == MotionEvent.ACTION_DOWN ) {
-
-					//sound.playPresetResource(R.raw.metronome, 1);
-					sound.playShortResource(globalSoundID, 1);
-
-
-					return true;
-				}
-				return false;
-			}
-		});
-
-		playHi.setOnTouchListener(new View.OnTouchListener() {
-			@Override
-			public boolean onTouch(View v, MotionEvent event) {
-				if (event.getAction() == MotionEvent.ACTION_DOWN ) {
-
-					//sound.playPresetResource(R.raw.metronome, 2);
-					sound.playShortResource(globalSoundID, 2);
-
-
-					return true;
-				}
-				return false;
-			}
-		});
-
-
-
-
-
-
 		stop.setEnabled(false);
 		reset.setEnabled(false);
-		play.setEnabled(false);
+
 		outputFile = Environment.getExternalStorageDirectory()
 				.getAbsolutePath() + "/myrecording.3gp";
 
-
-		
 		// 1. Create a MediaRecorder object
 		myAudioRecorder = new MediaRecorder();
 		
@@ -133,13 +91,15 @@ public class MainActivity extends Activity {
 					if(action == 0){
 
 						float pitch = (float) Math.pow( Math.pow(2.0, 1/12.0), (float) id-12 );
+						if(soundRecorded){
+							sound.playShortResource(globalSoundID, pitch);
+						}
+						else{
+							sound.playPresetResource(R.raw.piano_c, pitch);
+						}
 
-						//sound.playPresetResource(R.raw.piano_c, pitch);
-						sound.playShortResource(globalSoundID, pitch);
 					}
-
 				}
-
 			};
 
 
@@ -160,7 +120,7 @@ public class MainActivity extends Activity {
 		start.setEnabled(false);
 		stop.setEnabled(true);
 		Toast.makeText(getApplicationContext(), "Recording started",
-				Toast.LENGTH_LONG).show();
+				Toast.LENGTH_SHORT).show();
 
 	}
 
@@ -169,13 +129,11 @@ public class MainActivity extends Activity {
 		myAudioRecorder.stop();
 		
 		/*This method should be called when the recorder instance is needed.*/
-		//myAudioRecorder.release();
-		//myAudioRecorder = null;
 		stop.setEnabled(false);
-		play.setEnabled(true);
 		reset.setEnabled(true);
+		soundRecorded = true;
 		Toast.makeText(getApplicationContext(), "Audio recorded successfully",
-				Toast.LENGTH_LONG).show();
+				Toast.LENGTH_SHORT).show();
 
 
 		sound.unload(globalSoundID);
@@ -184,7 +142,6 @@ public class MainActivity extends Activity {
 	}
 
 	//7. After the recording is done, we create a MediaPlayer object which gives us methods to play the audio.
-
 
 	public void reset(View view){
 
@@ -199,34 +156,10 @@ public class MainActivity extends Activity {
 		//5. Choose the file to save audio
 		myAudioRecorder.setOutputFile(outputFile);
 
-
 		start.setEnabled(true);
-		play.setEnabled(false);
 		reset.setEnabled(false);
+		soundRecorded = false;
 
-	}
-
-
-
-
-	public void play(View view) throws IllegalArgumentException,
-			SecurityException, IllegalStateException, IOException {
-
-//		MediaPlayer m = new MediaPlayer();
-//		m.setDataSource(outputFile);
-//		m.prepare();
-//		m.start();
-
-		//sound.playShortResource(R.raw.metronome, 1);
-		//this line plays preloaded sound
-
-		//sound.playShortResource(Integer.parseInt(outputFile), 1);
-
-
-
-
-		Toast.makeText(getApplicationContext(), "Playing audio",
-				Toast.LENGTH_LONG).show();
 
 	}
 
