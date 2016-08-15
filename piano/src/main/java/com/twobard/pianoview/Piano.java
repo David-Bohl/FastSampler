@@ -20,7 +20,7 @@ import android.widget.Toast;
 
 public class Piano extends View {
 
-    private static final int defaultKeyCount = 24;
+    private static final int defaultKeyCount = 25;
 
     private TreeMap<Integer,Key> keymap_white;
     private TreeMap<Integer,Key> keymap_black;
