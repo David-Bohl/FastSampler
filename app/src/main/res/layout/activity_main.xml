@@ -62,22 +62,14 @@
           android:layout_centerHorizontal="true"/>
    </GridLayout>
 
-   <FrameLayout
+   <LinearLayout
+       android:orientation="horizontal"
        android:layout_width="match_parent"
        android:layout_height="match_parent"
-       android:layout_alignParentLeft="true"
-       android:layout_below="@+id/gridLayout">
-
-      <com.twobard.pianoview.Piano
-          android:layout_width="match_parent"
-          android:layout_height="203dp"
-          piano:keyCount="24"
-          piano:blackKeyDrawable="@drawable/key_black"
-          piano:whiteKeyDrawable="@drawable/key_white"
-          android:layout_gravity="center"/>
-
-
-   </FrameLayout>
+       android:layout_centerHorizontal="true"
+       android:layout_below="@+id/gridLayout"
+       android:id="@+id/main_content">
+   </LinearLayout>
 
 
 </RelativeLayout>

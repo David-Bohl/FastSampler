@@ -22,6 +22,7 @@ public class SoundPoolPlayer {
 
 
         mSounds.put(R.raw.metronome, this.mShortPlayer.load(pContext, R.raw.metronome, 1));
+        mSounds.put(R.raw.piano_c, this.mShortPlayer.load(pContext, R.raw.piano_c, 2));
         //mSounds.put(R.raw.<sound_2_name>, this.mShortPlayer.load(pContext, R.raw.<sound_2_name>, 1));
     }
 
