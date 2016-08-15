@@ -162,7 +162,7 @@ public class Piano extends View {
             case MotionEvent.ACTION_DOWN: pushKeyDown(event); break;
             case MotionEvent.ACTION_UP: handleActionUp(event); break;
             case MotionEvent.ACTION_POINTER_DOWN: pushKeyDown(event); break;
-            case MotionEvent.ACTION_POINTER_UP: handleActionUp(event); break; 
+            case MotionEvent.ACTION_POINTER_UP: handleActionUp(event); break;
             }
 
             return true;
