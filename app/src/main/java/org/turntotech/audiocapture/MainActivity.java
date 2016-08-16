@@ -8,10 +8,14 @@ package org.turntotech.audiocapture;
 
 import java.io.IOException;
 
+import android.database.Cursor;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.media.SoundPool;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.app.Activity;
@@ -25,8 +29,11 @@ import android.widget.LinearLayout;
 import com.twobard.pianoview.*;
 import com.twobard.pianoview.Piano.PianoKeyListener;
 
+import java.io.IOException;
+
 
 public class MainActivity extends Activity {
+
 
 	private MediaRecorder myAudioRecorder;
 	private String outputFile = null;
@@ -37,6 +44,15 @@ public class MainActivity extends Activity {
 	SoundPoolPlayer sound;
 
 	private static final String DEBUG_TAG = "PianoView";
+
+	public String getPath(Uri uri)
+	{
+		Cursor cursor = getContentResolver().query(uri, null, null, null, null);
+		cursor.moveToFirst();
+		int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+		return cursor.getString(idx);
+	}
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +94,44 @@ public class MainActivity extends Activity {
 		//5. Choose the file to save audio
 		myAudioRecorder.setOutputFile(outputFile);
 
-	}
+		//get the received intent
+		Intent receivedIntent = getIntent();
+		//get the action
+		String receivedAction = receivedIntent.getAction();
+		//find out what we are dealing with
+		String receivedType = receivedIntent.getType();
+
+		if(receivedAction.equals(Intent.ACTION_SEND)) {
+
+			Uri receivedUri = (Uri)receivedIntent.getParcelableExtra(Intent.EXTRA_STREAM);
+
+			if (receivedUri != null) {
+//				String selectedAudioPath = getPath(receivedUri);
+//				MediaPlayer  mediaPlayer = new MediaPlayer();
+//				try {
+//					mediaPlayer.setDataSource(selectedAudioPath);
+//					mediaPlayer.prepare();
+//					mediaPlayer.start();
+//
+//				} catch (IOException e) {
+//					e.printStackTrace();
+//				}
+				outputFile = getPath(receivedUri);
+
+				soundRecorded = true;
+				start.setEnabled(false);
+				reset.setEnabled(true);
+
+				sound.unload(globalSoundID);
+				globalSoundID = sound.loadShortResource(outputFile);
+			}
+
+		}
+
+
+
+
+	}//end on create
 
 	private PianoKeyListener onPianoKeyPress=
 			new PianoKeyListener() {
@@ -152,6 +205,9 @@ public class MainActivity extends Activity {
 
 		//4. This method specifies the audio encoder to be used
 		myAudioRecorder.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB);
+
+		outputFile = Environment.getExternalStorageDirectory()
+				.getAbsolutePath() + "/myrecording.3gp";
 
 		//5. Choose the file to save audio
 		myAudioRecorder.setOutputFile(outputFile);
