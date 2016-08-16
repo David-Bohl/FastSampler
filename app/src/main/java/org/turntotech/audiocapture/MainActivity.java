@@ -1,8 +1,4 @@
-/*
- * This is a sample application where we can record audio and play audio.
- * Android has a built in microphone through which you can capture and store audio.
- * Android provides the MediaRecorder class to record audio.
- * */
+// Mostly a combination of the AudioCapture and Receiving Data from other Apps Modules
 
 package org.turntotech.audiocapture;
 
@@ -49,7 +45,7 @@ public class MainActivity extends Activity {
 	{
 		Cursor cursor = getContentResolver().query(uri, null, null, null, null);
 		cursor.moveToFirst();
-		int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+		int idx = cursor.getColumnIndex(MediaStore.Audio.AudioColumns.DATA);
 		return cursor.getString(idx);
 	}
 
@@ -99,23 +95,14 @@ public class MainActivity extends Activity {
 		//get the action
 		String receivedAction = receivedIntent.getAction();
 		//find out what we are dealing with
-		String receivedType = receivedIntent.getType();
+		//String receivedType = receivedIntent.getType();
 
 		if(receivedAction.equals(Intent.ACTION_SEND)) {
 
 			Uri receivedUri = (Uri)receivedIntent.getParcelableExtra(Intent.EXTRA_STREAM);
 
 			if (receivedUri != null) {
-//				String selectedAudioPath = getPath(receivedUri);
-//				MediaPlayer  mediaPlayer = new MediaPlayer();
-//				try {
-//					mediaPlayer.setDataSource(selectedAudioPath);
-//					mediaPlayer.prepare();
-//					mediaPlayer.start();
-//
-//				} catch (IOException e) {
-//					e.printStackTrace();
-//				}
+
 				outputFile = getPath(receivedUri);
 
 				soundRecorded = true;
@@ -132,6 +119,16 @@ public class MainActivity extends Activity {
 
 
 	}//end on create
+
+//	@Override
+//	public void onStop() {
+//		finish();
+//		super.onStop();
+//
+//	}
+
+
+
 
 	private PianoKeyListener onPianoKeyPress=
 			new PianoKeyListener() {

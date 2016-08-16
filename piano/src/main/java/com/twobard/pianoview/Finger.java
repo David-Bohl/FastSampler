@@ -1,3 +1,5 @@
+// From: github.com/2bard
+
 package com.twobard.pianoview;
 
 import java.util.ArrayList;

@@ -1,3 +1,6 @@
+// From: github.com/2bard
+// slightly modified
+
 package com.twobard.pianoview;
 
 import java.io.IOException;
@@ -174,6 +177,18 @@ public class Piano extends View {
             }
         }
 
+        private void pushKeyDown(MotionEvent event){
+            int pointer_index = event.getPointerId(event.getActionIndex());
+            Key key = isPressingKey(event.getX(pointer_index), event.getY(pointer_index));
+            if(!fingers.containsKey(pointer_index)){
+                Finger finger = new Finger();
+                finger.press(key);
+                fingers.put(pointer_index,finger);
+            }
+        }
+
+
+
         public void handleActionUp(MotionEvent event) {             
             int pointer_index = event.getPointerId(event.getActionIndex());
             if(fingers.containsKey(pointer_index)){
@@ -182,15 +197,7 @@ public class Piano extends View {
             } 
         }
 
-        private void pushKeyDown(MotionEvent event){
-            int pointer_index = event.getPointerId(event.getActionIndex());
-            Key key = isPressingKey(event.getX(pointer_index), event.getY(pointer_index));
-            if(!fingers.containsKey(pointer_index)){
-                Finger finger = new Finger();
-                finger.press(key);
-                fingers.put(pointer_index,finger);
-            } 
-        }
+
 
         private void handlePointerIndex(int index, MotionEvent event){
             int pointer_id = event.getPointerId(index);
@@ -206,6 +213,7 @@ public class Piano extends View {
             }
 
         }
+        //////////////////////////////////////////////////////////////////////////////////////////
 
         private Key isPressingKey(float xpos,float ypos){
             Key pressing_key;

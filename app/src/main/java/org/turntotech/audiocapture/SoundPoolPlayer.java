@@ -8,7 +8,7 @@ import java.io.FileDescriptor;
 import java.util.HashMap;
 
 /**
- * Created by david on 8/11/16.
+ *  From Raghav Sood on Stack Overflow.  Modified.
  */
 public class SoundPoolPlayer {
     private SoundPool mShortPlayer= null;
