@@ -182,7 +182,7 @@ public class MainActivity extends Activity {
 		stop.setEnabled(false);
 		reset.setEnabled(true);
 		soundRecorded = true;
-		Toast.makeText(getApplicationContext(), "Audio recorded successfully",
+		Toast.makeText(getApplicationContext(), "Sample recorded successfully",
 				Toast.LENGTH_SHORT).show();
 
 
@@ -213,6 +213,8 @@ public class MainActivity extends Activity {
 		reset.setEnabled(false);
 		soundRecorded = false;
 
+		Toast.makeText(getApplicationContext(), "Ready to record another sample",
+				Toast.LENGTH_SHORT).show();
 
 	}
 
