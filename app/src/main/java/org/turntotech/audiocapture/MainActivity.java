@@ -163,7 +163,7 @@ public class MainActivity extends Activity {
 
 		outputFile = Environment.getExternalStorageDirectory()
 				.getAbsolutePath() + "/myrecording.3gp";
-		
+
 		myAudioRecorder.setOutputFile(outputFile);
 
 		start.setEnabled(true);

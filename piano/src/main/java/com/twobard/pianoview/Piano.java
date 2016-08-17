@@ -161,6 +161,8 @@ public class Piano extends View {
 
             int action = event.getActionMasked();
 
+
+            // ignores ACTION_MOVE, ACTION_UP and ACTION_POINTER_UP events
             switch (action) {
             //case MotionEvent.ACTION_MOVE: handleActionPointerMove(event); break;
                 case MotionEvent.ACTION_MOVE: break;
@@ -180,14 +182,15 @@ public class Piano extends View {
             return true;
         }
 
-        public void handleActionPointerMove(MotionEvent event) {        
-            for(int i = 0; i < event.getPointerCount(); i++){
-                handlePointerIndex(i, event);
-            }
-        }
+        //bypassed
+//        public void handleActionPointerMove(MotionEvent event) {
+//            for(int i = 0; i < event.getPointerCount(); i++){
+//                handlePointerIndex(i, event);
+//            }
+//        }
 
         private void pushKeyDown(MotionEvent event){
-            //int pointer_index = event.getPointerId(event.getActionIndex());
+            //int pointer_index = event.getPointerId(event.getActionIndex()); // original code caused crash
             //int pointer_index = event.getActionIndex();
 
             int pointer_id = event.getPointerId(event.getActionIndex()); //works with no crash
@@ -195,15 +198,13 @@ public class Piano extends View {
 
             //Log.i("pushKeyDown","pointer_index: " + Integer.toString(pointer_index) );
 
-
             Key key = isPressingKey(event.getX(pointer_index), event.getY(pointer_index));
             if(!fingers.containsKey(pointer_index)){
                 Finger finger = new Finger();
                 finger.press(key);
                 fingers.put(pointer_index,finger);
 
-
-
+                // key comes back up immediately
                 fingers.get(pointer_index).lift();
                 fingers.remove(pointer_index);
 
@@ -211,43 +212,42 @@ public class Piano extends View {
         }
 
 
-
-        public void handleActionUp(MotionEvent event) {             
-            //int pointer_index = event.getPointerId(event.getActionIndex());
-            //int pointer_index = event.getActionIndex();
-
-            int pointer_id = event.getPointerId(event.getActionIndex()); //works with no crash
-            int pointer_index = event.findPointerIndex(pointer_id);
-
-            //Log.i("handleActionUp","pointer_index: " + Integer.toString(pointer_id) );
-
-
-            if(fingers.containsKey(pointer_index)){
-                fingers.get(pointer_index).lift();
-                fingers.remove(pointer_index);
-            }
-
-        }
-
+        //bypassed
+//        public void handleActionUp(MotionEvent event) {
+//            //int pointer_index = event.getPointerId(event.getActionIndex()); // original code caused crash
+//            //int pointer_index = event.getActionIndex();
+//
+//            int pointer_id = event.getPointerId(event.getActionIndex()); //works with no crash
+//            int pointer_index = event.findPointerIndex(pointer_id);
+//
+//            //Log.i("handleActionUp","pointer_index: " + Integer.toString(pointer_id) );
+//
+//            if(fingers.containsKey(pointer_index)){
+//                fingers.get(pointer_index).lift();
+//                fingers.remove(pointer_index);
+//            }
+//
+//        }
 
 
-        private void handlePointerIndex(int index, MotionEvent event){
-            int pointer_id = event.getPointerId(index);
-            int pointer_index = event.findPointerIndex(pointer_id);
-            //has it moved off a key?
-            Key key = isPressingKey(event.getX(index), event.getY(index));
-            Finger finger = fingers.get(pointer_id);
-            //Finger finger = fingers.get(pointer_index);
+        //bypassed
+//        private void handlePointerIndex(int index, MotionEvent event){
+//            int pointer_id = event.getPointerId(index);
+//            int pointer_index = event.findPointerIndex(pointer_id);
+//            //has it moved off a key?
+//            Key key = isPressingKey(event.getX(index), event.getY(index));
+//            Finger finger = fingers.get(pointer_id);
+//            //Finger finger = fingers.get(pointer_index);
+//
+//            if(key == null){
+//                finger.lift();
+//            } else if(finger.isPressing(key) == false){
+//                finger.lift();
+//                finger.press(key);
+//            }
+//
+//        }
 
-            if(key == null){
-                finger.lift();
-            } else if(finger.isPressing(key) == false){
-                finger.lift();
-                finger.press(key);
-            }
-
-        }
-        //////////////////////////////////////////////////////////////////////////////////////////
 
         private Key isPressingKey(float xpos,float ypos){
             Key pressing_key;
