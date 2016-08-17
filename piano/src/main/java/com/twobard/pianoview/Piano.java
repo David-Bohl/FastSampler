@@ -167,13 +167,13 @@ public class Piano extends View {
 
             case MotionEvent.ACTION_DOWN: pushKeyDown(event); break;
 
-            case MotionEvent.ACTION_UP: handleActionUp(event); break;
-                //case MotionEvent.ACTION_UP: break;
+            //case MotionEvent.ACTION_UP: handleActionUp(event); break;
+                case MotionEvent.ACTION_UP: break;
 
             case MotionEvent.ACTION_POINTER_DOWN: pushKeyDown(event); break;
 
-            case MotionEvent.ACTION_POINTER_UP: handleActionUp(event); break;
-                //case MotionEvent.ACTION_POINTER_UP:  break;
+            //case MotionEvent.ACTION_POINTER_UP: handleActionUp(event); break;
+                case MotionEvent.ACTION_POINTER_UP:  break;
 
             }
 
@@ -191,7 +191,6 @@ public class Piano extends View {
             //int pointer_index = event.getActionIndex();
 
             int pointer_id = event.getPointerId(event.getActionIndex()); //works with no crash
-
             int pointer_index = event.findPointerIndex(pointer_id);
 
             //Log.i("pushKeyDown","pointer_index: " + Integer.toString(pointer_index) );
@@ -203,8 +202,10 @@ public class Piano extends View {
                 finger.press(key);
                 fingers.put(pointer_index,finger);
 
-                //fingers.get(pointer_index).lift();
-                //fingers.remove(pointer_index);
+
+
+                fingers.get(pointer_index).lift();
+                fingers.remove(pointer_index);
 
             }
         }
@@ -216,7 +217,6 @@ public class Piano extends View {
             //int pointer_index = event.getActionIndex();
 
             int pointer_id = event.getPointerId(event.getActionIndex()); //works with no crash
-
             int pointer_index = event.findPointerIndex(pointer_id);
 
             //Log.i("handleActionUp","pointer_index: " + Integer.toString(pointer_id) );
