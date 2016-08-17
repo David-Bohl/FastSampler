@@ -2,30 +2,24 @@
 
 package org.turntotech.audiocapture;
 
-import java.io.IOException;
 
 import android.database.Cursor;
-import android.media.AudioManager;
-import android.media.MediaPlayer;
+
 import android.media.MediaRecorder;
 import android.net.Uri;
 import android.provider.MediaStore;
-import android.media.SoundPool;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.app.Activity;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 import android.util.Log;
-import android.view.ViewGroup.LayoutParams;
 import android.widget.LinearLayout;
 import com.twobard.pianoview.*;
 import com.twobard.pianoview.Piano.PianoKeyListener;
 
-import java.io.IOException;
 
 
 public class MainActivity extends Activity {
@@ -48,7 +42,6 @@ public class MainActivity extends Activity {
 		int idx = cursor.getColumnIndex(MediaStore.Audio.AudioColumns.DATA);
 		return cursor.getString(idx);
 	}
-
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -73,29 +66,17 @@ public class MainActivity extends Activity {
 		outputFile = Environment.getExternalStorageDirectory()
 				.getAbsolutePath() + "/myrecording.3gp";
 
-		// 1. Create a MediaRecorder object
-		myAudioRecorder = new MediaRecorder();
-		
-		/*set the source , output and encoding format and output file.*/
-		
-		//2. This method specifies the source of audio to be recorded
-		myAudioRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-		
-		//3. This method specifies the audio format in which audio to be stored
-		myAudioRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-		
-		//4. This method specifies the audio encoder to be used
-		myAudioRecorder.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB);
 
-		//5. Choose the file to save audio
+		myAudioRecorder = new MediaRecorder();
+		myAudioRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+		myAudioRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+		myAudioRecorder.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB);
 		myAudioRecorder.setOutputFile(outputFile);
 
-		//get the received intent
+
 		Intent receivedIntent = getIntent();
-		//get the action
 		String receivedAction = receivedIntent.getAction();
-		//find out what we are dealing with
-		//String receivedType = receivedIntent.getType();
+
 
 		if(receivedAction.equals(Intent.ACTION_SEND)) {
 
@@ -112,23 +93,9 @@ public class MainActivity extends Activity {
 				sound.unload(globalSoundID);
 				globalSoundID = sound.loadShortResource(outputFile);
 			}
-
 		}
 
-
-
-
 	}//end on create
-
-//	@Override
-//	public void onStop() {
-//		finish();
-//		super.onStop();
-//
-//	}
-
-
-
 
 	private PianoKeyListener onPianoKeyPress=
 			new PianoKeyListener() {
@@ -136,7 +103,7 @@ public class MainActivity extends Activity {
 				@Override
 				public void keyPressed(int id, int action) {
 					//Log.i(DEBUG_TAG,"Key pressed: " + id);
-					Log.i("ID: " + Integer.toString(id)," " + Integer.toString(action) );
+					//Log.i("ID: " + Integer.toString(id)," " + Integer.toString(action) );
 
 					if(action == 0){
 
@@ -153,13 +120,10 @@ public class MainActivity extends Activity {
 			};
 
 
-
-
-	//6. Methods in the mediaRecorder allow you to to start and stop recording
 	public void start(View view) {
 		Log.i("start button", "pressed");
 		try {
-			/*Two basic methods perpare and start to start recording the audio.*/
+
 			myAudioRecorder.prepare();
 			Log.i("recorder", "prepared");
 			myAudioRecorder.start();
@@ -175,38 +139,31 @@ public class MainActivity extends Activity {
 	}
 
 	public void stop(View view) {
-		/*This method stops the recording process.*/
+
 		myAudioRecorder.stop();
-		
-		/*This method should be called when the recorder instance is needed.*/
+
 		stop.setEnabled(false);
 		reset.setEnabled(true);
 		soundRecorded = true;
 		Toast.makeText(getApplicationContext(), "Sample recorded successfully",
 				Toast.LENGTH_SHORT).show();
 
-
 		sound.unload(globalSoundID);
 		globalSoundID = sound.loadShortResource(outputFile);
-		///////////////////////////////////////////////////
+
 	}
 
-	//7. After the recording is done, we create a MediaPlayer object which gives us methods to play the audio.
 
 	public void reset(View view){
 
 		myAudioRecorder.reset();
 		myAudioRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-
 		myAudioRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-
-		//4. This method specifies the audio encoder to be used
 		myAudioRecorder.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB);
 
 		outputFile = Environment.getExternalStorageDirectory()
 				.getAbsolutePath() + "/myrecording.3gp";
-
-		//5. Choose the file to save audio
+		
 		myAudioRecorder.setOutputFile(outputFile);
 
 		start.setEnabled(true);
