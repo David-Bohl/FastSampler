@@ -1,5 +1,5 @@
 // From: github.com/2bard
-// slightly modified
+// modified by David Bohl
 
 package com.twobard.pianoview;
 
@@ -17,6 +17,7 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
@@ -161,11 +162,19 @@ public class Piano extends View {
             int action = event.getActionMasked();
 
             switch (action) {
-            case MotionEvent.ACTION_MOVE: handleActionPointerMove(event); break;
+            //case MotionEvent.ACTION_MOVE: handleActionPointerMove(event); break;
+                case MotionEvent.ACTION_MOVE: break;
+
             case MotionEvent.ACTION_DOWN: pushKeyDown(event); break;
+
             case MotionEvent.ACTION_UP: handleActionUp(event); break;
+                //case MotionEvent.ACTION_UP: break;
+
             case MotionEvent.ACTION_POINTER_DOWN: pushKeyDown(event); break;
+
             case MotionEvent.ACTION_POINTER_UP: handleActionUp(event); break;
+                //case MotionEvent.ACTION_POINTER_UP:  break;
+
             }
 
             return true;
@@ -178,32 +187,57 @@ public class Piano extends View {
         }
 
         private void pushKeyDown(MotionEvent event){
-            int pointer_index = event.getPointerId(event.getActionIndex());
+            //int pointer_index = event.getPointerId(event.getActionIndex());
+            //int pointer_index = event.getActionIndex();
+
+            int pointer_id = event.getPointerId(event.getActionIndex()); //works with no crash
+
+            int pointer_index = event.findPointerIndex(pointer_id);
+
+            //Log.i("pushKeyDown","pointer_index: " + Integer.toString(pointer_index) );
+
+
             Key key = isPressingKey(event.getX(pointer_index), event.getY(pointer_index));
             if(!fingers.containsKey(pointer_index)){
                 Finger finger = new Finger();
                 finger.press(key);
                 fingers.put(pointer_index,finger);
+
+                //fingers.get(pointer_index).lift();
+                //fingers.remove(pointer_index);
+
             }
         }
 
 
 
         public void handleActionUp(MotionEvent event) {             
-            int pointer_index = event.getPointerId(event.getActionIndex());
+            //int pointer_index = event.getPointerId(event.getActionIndex());
+            //int pointer_index = event.getActionIndex();
+
+            int pointer_id = event.getPointerId(event.getActionIndex()); //works with no crash
+
+            int pointer_index = event.findPointerIndex(pointer_id);
+
+            //Log.i("handleActionUp","pointer_index: " + Integer.toString(pointer_id) );
+
+
             if(fingers.containsKey(pointer_index)){
                 fingers.get(pointer_index).lift();
                 fingers.remove(pointer_index);
-            } 
+            }
+
         }
 
 
 
         private void handlePointerIndex(int index, MotionEvent event){
             int pointer_id = event.getPointerId(index);
+            int pointer_index = event.findPointerIndex(pointer_id);
             //has it moved off a key?
             Key key = isPressingKey(event.getX(index), event.getY(index));
             Finger finger = fingers.get(pointer_id);
+            //Finger finger = fingers.get(pointer_index);
 
             if(key == null){
                 finger.lift();

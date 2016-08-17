@@ -135,8 +135,8 @@ public class MainActivity extends Activity {
 
 				@Override
 				public void keyPressed(int id, int action) {
-					Log.i(DEBUG_TAG,"Key pressed: " + id);
-					Log.i("action", Integer.toString(action) );
+					//Log.i(DEBUG_TAG,"Key pressed: " + id);
+					Log.i("ID: " + Integer.toString(id)," " + Integer.toString(action) );
 
 					if(action == 0){
 

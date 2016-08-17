@@ -3,6 +3,7 @@
 <declare-styleable name="PianoView">
 	<attr name="blackKeyDrawable" format="reference" />
 	<attr name="whiteKeyDrawable" format="reference" /> 
-	<attr name="keyCount" format="integer" /> 
+	<attr name="keyCount" format="integer" />
+
 </declare-styleable>
 </resources>
