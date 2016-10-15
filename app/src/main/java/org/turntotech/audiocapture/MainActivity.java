@@ -1,4 +1,4 @@
-// Mostly a combination of the AudioCapture and Receiving Data from other Apps Modules
+// Includes parts of "AudioCapture" and "Receiving Data" from Turn To Tech
 
 package org.turntotech.audiocapture;
 

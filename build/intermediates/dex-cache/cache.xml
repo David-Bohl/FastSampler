@@ -2,18 +2,18 @@
 <items version="2" >
 
     <item
-        jar="/Users/david/Library/Android/sdk/extras/android/m2repository/com/android/support/support-v4/19.1.0/support-v4-19.1.0.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="85f201b380937e61a9dce6ca90ccf6872abbfb67">
-        <dex dex="/Users/david/CSCI_archive/Android_Class/Final Project/AudioCapture/app/build/intermediates/pre-dexed/debug/support-v4-19.1.0-a3f05575a59273c6372b0cbf5f2b1d3a2fa8b0bd.jar" />
-    </item>
-    <item
         jar="/Users/david/CSCI_archive/Android_Class/Final Project/AudioCapture/app/build/intermediates/exploded-aar/AudioCapture/piano/unspecified/classes.jar"
         jumboMode="false"
         revision="21.1.2"
         sha1="4869f41b4b7fd627895c6112432e3e8300e57c97">
         <dex dex="/Users/david/CSCI_archive/Android_Class/Final Project/AudioCapture/app/build/intermediates/pre-dexed/debug/classes-6f2ddd29c6f2c9825d3aa39efa559ce6c98e1739.jar" />
+    </item>
+    <item
+        jar="/Users/david/Library/Android/sdk/extras/android/m2repository/com/android/support/support-v4/19.1.0/support-v4-19.1.0.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="85f201b380937e61a9dce6ca90ccf6872abbfb67">
+        <dex dex="/Users/david/CSCI_archive/Android_Class/Final Project/AudioCapture/app/build/intermediates/pre-dexed/debug/support-v4-19.1.0-a3f05575a59273c6372b0cbf5f2b1d3a2fa8b0bd.jar" />
     </item>
 
 </items>
